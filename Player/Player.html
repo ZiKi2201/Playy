@@ -3,6 +3,7 @@
     <head>
       <meta charset="utf-8">
       <link rel="stylesheet" type="text/css" href="style.css">
+
       <title>Player</title>
     </head>
     <body>
@@ -12,8 +13,8 @@
           </div>
           <div class="Search">
             <form>
-            <input type="text" size="50"  placeholder="Поиск музыки...">
-            <input type="submit"  value="" class="Submit">
+              <input type="text" size="50"  placeholder="Поиск музыки..." class="Search_music">
+              <input type="submit" value=""  class="Submit">
             </form>
           </div>
           <div class="Profile">
@@ -79,7 +80,9 @@
               EMINEM DR.DRE 50 CENT
             </div>
           </div>
-          <div class="Line"></div>
+          <div class="Line">
+            <div class="Loading"></div>
+          </div>
           <div class="LeftTime">
             0:00
           </div>
@@ -102,7 +105,7 @@
               <h4>Похожие треки</h4>
               <hr>
             </div>
-            <div class="MusicDiv_3">
+            <div class="MusicDiv_1">
               <div class="Album">
               </div>
               <div class="Music_1">
@@ -117,7 +120,7 @@
                 5:18
               </div>
             </div>
-            <div class="MusicDiv_3">
+            <div class="MusicDiv_1">
               <div class="Album">
               </div>
               <div class="Music_1">
@@ -136,4 +139,12 @@
         </div>
       </div>
     </body>
+    <script>
+     var submit = document.getElementsByClassName('Submit');
+        submit[0].onclick=function() {
+            var search=document.getElementsByClassName('Search_music')[0];
+            alert(search.value);
+            return false;
+        }
+    </script>
   </html>
