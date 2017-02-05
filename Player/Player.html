@@ -3,7 +3,6 @@
     <head>
       <meta charset="utf-8">
       <link rel="stylesheet" type="text/css" href="style.css">
-
       <title>Player</title>
     </head>
     <body>
@@ -33,6 +32,7 @@
           <div class="Viewed">
             <h4>Популярные песни</h4>
             <hr>
+            <button onclick="bar()">Добавить</button>
           </div>
 
             <div class="MusicDiv_1">
@@ -65,6 +65,7 @@
               5:18
             </div>
           </div>
+
           <div class="LoadButton">
           </div>
         </div>
@@ -147,4 +148,26 @@
             return false;
         }
     </script>
-  </html>
+    <script>
+        function bar() {
+            var elem = document.createElement("div");
+            elem.innerHTML = '<div class="MusicDiv_1">\
+            <div class="Album">\
+                </div>\
+                <div class="Music_1">\
+                <div class="MusicName_1">\
+                <b>Crack A Bottle</b>\
+            </div>\
+            <div class="Singer_1">\
+                EMINEM DR.DRE 50 CENT \
+            </div>\
+            </div>\
+            <div class="Time">\
+                5:18\
+            </div>\
+            </div>';
+            document.getElementsByClassName("LeftDiv")[0].appendChild(elem);
+        }
+    </script>
+
+</html>
