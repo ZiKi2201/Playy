@@ -4,6 +4,7 @@
       <meta charset="utf-8">
       <link rel="stylesheet" type="text/css" href="style.css">
       <title>Player</title>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     </head>
     <body>
       <div class="Body">
@@ -109,37 +110,38 @@
       </div>
     </body>
     <script>
-     var submit = document.getElementsByClassName('Submit');
-        submit[0].onclick=function() {
-            var search=document.getElementsByClassName('Search_music')[0];
+        $('.Submit')[0].onclick=function() {
+            var search= $('.Search_music')[0];
             alert(search.value);
             return false;
-        }
-    </script>
+        };
+       function bar() {
+            var musics = [
+                {
+                    "url_img": 'img/50-cent.jpg',
+                    "Singer_1": 'EMINEM DR.DRE 50 CENT',
+                    "MusicName": 'Crack A Bottle',
+                    "Time": '5:18'
+                }
+            ];
+            $.each(musics, function ( key, music) {
+                 $('.LeftDiv').append('<div class="MusicDiv_1">\
+                                         <div class="Album" style="background-image: url('+music.url_img+')"></div>\
+                                         <div class="Music_1">\
+                                           <div class="MusicName_1">\
+                                              <b>'+music.MusicName+'</b>\
+                                           </div>\
+                                           <div class="Singer_1">\
+                                               '+music.Singer_1+' \
+                                           </div>\
+                                         </div>\
+                                         <div class="Time">\
+                                             '+music.Time+'\
+                                         </div>\
+                                      </div>');
+            });
+       }
 
-    <script>
-        function bar(){
-            for(var i=0;i<10;i++){
-                var elem = document.createElement("div");
-                elem.innerHTML = ' <div class="MusicDiv_1">\
-                    <div class="Album">\
-                    </div>\
-                    <div class="Music_1">\
-                    <div class="MusicName_1">\
-                    <b>Crack A Bottle</b>\
-                </div>\
-                <div class="Singer_1">\
-                    EMINEM DR.DRE 50 CENT \
-                </div>\
-                </div>\
-                <div class="Time">\
-                    5:18\
-                </div>\
-                </div>' ;
-
-                document.getElementsByClassName("LeftDiv")[0].appendChild(elem);
-            }
-        }
 
     </script>
 
