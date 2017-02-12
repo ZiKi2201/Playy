@@ -5,6 +5,9 @@
       <link rel="stylesheet" type="text/css" href="style.css">
       <title>Player</title>
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+      <script type="text/javascript" src="lastfm.api.md5-min.js"></script>
+      <script type="text/javascript" src="lastfm.api.js"></script>
+
     </head>
     <body>
       <div class="Body">
@@ -140,6 +143,10 @@
                                          </div>\
                                       </div>');
             });
+           var lastfm = new LastFM({
+               apiKey    : '189cce0a877c73b64aaf2dd3b55e4072',
+               apiSecret : '5d9a5b0b0bb0ca22efa0e2feaaaa4a20'
+           });
        }
 
 
