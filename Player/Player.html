@@ -36,7 +36,6 @@
           <div class="Viewed">
             <h4 class="Context">Популярные песни</h4>
             <hr>
-            <button onclick="bar()">Добавить</button>
           </div>
           <div class="LoadButton">
           </div>
@@ -113,41 +112,40 @@
       </div>
     </body>
     <script>
-        $('.Submit')[0].onclick=function() {
-            var search= $('.Search_music')[0];
-            alert(search.value);
-            return false;
-        };
-       function bar() {
-            var musics = [
-                {
-                    "url_img": 'img/50-cent.jpg',
-                    "Singer_1": 'EMINEM DR.DRE 50 CENT',
-                    "MusicName": 'Crack A Bottle',
-                    "Time": '5:18'
-                }
-            ];
-            $.each(musics, function ( key, music) {
-                 $('.LeftDiv').append('<div class="MusicDiv_1">\
-                                         <div class="Album" style="background-image: url('+music.url_img+')"></div>\
-                                         <div class="Music_1">\
+            $('.Submit')[0].onclick = function () {
+
+                var search = $('.Search_music')[0];
+
+                var surl = 'http://ws.audioscrobbler.com/2.0/?method=track.search&track=' + search.value + '&api_key=189cce0a877c73b64aaf2dd3b55e4072&format=json&callback=?';
+
+                $.getJSON(surl, function (musics) {
+
+                    $.each(musics.results.trackmatches.track, function (i, music) {
+                        if (i === 10) {
+                            return false;
+                        }
+                        $('.LeftDiv').append('<div class="MusicDiv_1">\
+                                         <div class="Album" style="background-image: url(' + music.image[1]["#text"] + ')"></div>\
+                                          <div class="Music_1">\
                                            <div class="MusicName_1">\
-                                              <b>'+music.MusicName+'</b>\
+                                              <b>' + music.name + '</b>\
                                            </div>\
                                            <div class="Singer_1">\
-                                               '+music.Singer_1+' \
+                                               ' + music.artist + ' \
                                            </div>\
                                          </div>\
                                          <div class="Time">\
-                                             '+music.Time+'\
+                                             ' + music.listeners + '\
                                          </div>\
                                       </div>');
-            });
-           var lastfm = new LastFM({
-               apiKey    : '189cce0a877c73b64aaf2dd3b55e4072',
-               apiSecret : '5d9a5b0b0bb0ca22efa0e2feaaaa4a20'
-           });
-       }
+
+                    });
+
+                });
+
+                return false;
+
+            };
 
 
     </script>
