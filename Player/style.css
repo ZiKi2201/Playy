@@ -163,11 +163,9 @@ h4.Context{
   border-left: 1px solid lightgrey;
 }
 .Image_1{
-  padding-top: 30px;
+  padding-top: 10px;
 }
-.Image_1 img{
-  width: 240px;
-}
+
 .MusicName_2{
   margin-top: 20px;
 
@@ -212,7 +210,7 @@ h4.Context{
 }
 .Text{
     padding-left: 15px;
-    margin-top: 150px;
+    margin-top: 15px;
 }
 .Music_2{
   padding-left: 15px
