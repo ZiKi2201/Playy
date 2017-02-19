@@ -32,7 +32,7 @@
         </div>
         <div class="LeftDiv">
           <div class="Viewed">
-            <h4 class="Context">Популярные песни</h4>
+            <h4 class="Context">Похожие треки</h4>
             <hr>
           </div>
           <div class="LoadButton">
@@ -43,71 +43,84 @@
           </div>
           <div class="Track">
             <div class="Text">
-              <h4 class="Context">Похожие треки</h4>
+              <h4 class="Context">Популярные треки</h4>
               <hr>
-            </div>
-            <div class="MusicDiv_1">
-              <div class="Album">
-              </div>
-              <div class="Music_1">
-                <div class="MusicName_1">
-                  <b>Crack A Bottle</b>
-                </div>
-                <div class="Singer_1">
-                  EMINEM DR.DRE 50 CENT
-                </div>
-              </div>
-              <div class="Time">
-                5:18
-              </div>
-            </div>
-            <div class="MusicDiv_1">
-              <div class="Album">
-              </div>
-              <div class="Music_1">
-                <div class="MusicName_1">
-                  <b>Crack A Bottle</b>
-                </div>
-                <div class="Singer_1">
-                  EMINEM DR.DRE 50 CENT
-                </div>
-              </div>
-              <div class="Time">
-                5:18
-              </div>
             </div>
           </div>
         </div>
       </div>
     </body>
     <script>
-            $('.Submit')[0].onclick = function () {
+        window.onload=function () {
 
-                var search = $('.Search_music')[0];
+            var rurl = 'http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=189cce0a877c73b64aaf2dd3b55e4072&format=json&callback=?';
+            $.getJSON(rurl, function (tracks) {
 
-                var surl = 'http://ws.audioscrobbler.com/2.0/?method=track.search&track=' + search.value + '&api_key=189cce0a877c73b64aaf2dd3b55e4072&format=json&callback=?';
-
-                $.getJSON(surl, function (musics) {
-
-                    $.each(musics.results.trackmatches.track, function (i, music) {
-                        if (i === 10) {
-                            return false;
-                        }
-                        $('.LeftDiv').append('<div class="MusicDiv_1">\
-                                         <div class="Album" style="background-image: url(' + music.image[1]["#text"] + ')"></div>\
-                                          <div class="Music_1">\
-                                           <div class="MusicName_1">\
-                                              <b>' + music.name + '</b>\
-                                           </div>\
-                                           <div class="Singer_1">\
-                                               ' + music.artist + ' \
-                                           </div>\
-                                         </div>\
-                                       </div>');
-
+                $.each(tracks.tracks.track, function (i, track) {
+                    var MusicDivRight = ('<div class="MusicDiv_1">' +
+                        '<div class="Album" style="background-image: url(' + track.image[1]["#text"] + ')"></div>' +
+                        '<div class="Music_1">' +
+                        '<div class="MusicName_1">' +
+                        '<b>' + track.name + '</b>' +
+                        '</div>' +
+                        '<div class="Singer_1">' +
+                        ' ' + track.artist["name"] + ' ' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>');
+                    if (i === 5) {
+                        return false;
+                    }
+                    $('.RightDiv').append(MusicDivRight);
+                });
+                $(document).on('click', '.MusicDiv_1', function () {
+                    var name = $(this).text();
+                    console.log(name);
+                    var request = gapi.client.youtube.search.list({
+                        part: "snippet",
+                        q: name,
+                        maxResults: 1
                     });
+                    request.execute(function (response) {
+                        var results = response.result;
+                        $(".Image_1").html("");
+                        $.each(results.items, function (index, item) {
+                            var Youtube = ('<iframe width="240"  src="//www.youtube.com/embed/' + item.id.videoId + '?rel=0&autoplay=1" frameborder="0"  allowfullscreen></iframe>' +
+                            '<div class="MusicName_2" align="center">' +
+                            '<b>' + item.snippet.title + '</b>' +
+                            '</div>');
+                            $(".Image_1").append(Youtube);
+                        });
+                    });
+                });
+            });
+                $('.Submit')[0].onclick = function () {
 
-                        $(document).on('click','.MusicDiv_1', function ()  {
+                    var search = $('.Search_music')[0];
+
+                    var lurl = 'http://ws.audioscrobbler.com/2.0/?method=track.search&track=' + search.value + '&api_key=189cce0a877c73b64aaf2dd3b55e4072&format=json&callback=?';
+
+                    $.getJSON(lurl, function (musics) {
+
+                        $.each(musics.results.trackmatches.track, function (i, music) {
+                            var MusicDivLeft = ('<div class="MusicDiv_1">'+
+                            '<div class="Album" style="background-image: url(' + music.image[1]["#text"] + ')"></div>' +
+                            '<div class="Music_1">' +
+                            '<div class="MusicName_1">' +
+                            '<b>' + music.name + '</b>' +
+                            '</div>' +
+                            '<div class="Singer_1">' +
+                            '  ' + music.artist + '  ' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>');
+                            if (i === 10) {
+                                return false;
+                            }
+
+                            $('.LeftDiv').append(MusicDivLeft);
+                        });
+                        $(document).on('click', '.MusicDiv_1', function () {
                             var name = $(this).text();
                             console.log(name);
                             var request = gapi.client.youtube.search.list({
@@ -115,33 +128,24 @@
                                 q: name,
                                 maxResults: 1
                             });
-                            request.execute(function(response) {
+                            request.execute(function (response) {
                                 var results = response.result;
                                 $(".Image_1").html("");
-                                $.each(results.items, function(index, item) {
-                                    $(".Image_1").append('<iframe width="240"  src="//www.youtube.com/embed/'+ item.id.videoId +'?rel=0&autoplay=1" frameborder="0" on allowfullscreen></iframe>' +
-                                            '<div class="MusicName_2" align="center">'+
-                                              '<b>'+ item.snippet.title +'</b>'+
-                                             '</div>');
-                                        console.log(item);
-
+                                $.each(results.items, function (index, item) {
+                                  var Youtube = ('<iframe width="240"  src="//www.youtube.com/embed/' + item.id.videoId + '?rel=0&autoplay=1" frameborder="0"  allowfullscreen></iframe>' +
+                                    '<div class="MusicName_2" align="center">' +
+                                    '<b>' + item.snippet.title + '</b>' +
+                                    '</div>');
+                                    $(".Image_1").append(Youtube);
                                 });
-
                             });
                         });
 
+                    });
 
-
-
-
-
-                });
-
-                return false;
-
-
-            };
-
+                    return false;
+                };
+        };
 
     </script>
 
